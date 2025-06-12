@@ -1,12 +1,264 @@
-
-index
-
-my email
-
-<a href = "mailto:shunianshuo@gmail.com">
-    <img  alt   = "Email " 
-          title = "My email"
-          src   = "https://custom-icon-badges.demolab.com/badge/-shunianshuo@gmail.com-698ae8?style=for-the-badge&logo=mention&logoColor=white"
-          style = "padding-right:10px;
-    "/></a>
-
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>每日音乐时光</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        h1 {
+            color: #d64161;
+            text-align: center;
+        }
+        .time-display {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        .playlist {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .playlist h2 {
+            color: #6b5b95;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .song {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s;
+        }
+        .song:hover {
+            background-color: #f9f9f9;
+        }
+        .song-number {
+            font-weight: bold;
+            margin-right: 15px;
+            color: #d64161;
+            min-width: 25px;
+        }
+        .song-info {
+            flex-grow: 1;
+        }
+        .song-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .song-artist {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .play-button {
+            background-color: #d64161;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .play-button:hover {
+            background-color: #b33c52;
+        }
+        .player-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            padding: 15px;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+            display: none;
+        }
+        .now-playing {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>每日音乐时光</h1>
+    
+    <div class="time-display">
+        当前时间: <span id="current-time"></span>
+        <br>
+        正在播放: <span id="current-playlist"></span> 歌单
+    </div>
+    
+    <!-- 早晨歌单 (6:00-11:59) -->
+    <div class="playlist" id="morning-playlist">
+        <h2>☀️ 早晨歌单 (6:00-11:59)</h2>
+        <div class="song">
+            <div class="song-number">1</div>
+            <div class="song-info">
+                <div class="song-title">晨光</div>
+                <div class="song-artist">艺术家A</div>
+            </div>
+            <button class="play-button" data-ytid="dQw4w9WgXcQ">播放</button>
+        </div>
+        <div class="song">
+            <div class="song-number">2</div>
+            <div class="song-info">
+                <div class="song-title">早安阳光</div>
+                <div class="song-artist">艺术家B</div>
+            </div>
+            <button class="play-button" data-ytid="dQw4w9WgXcQ">播放</button>
+        </div>
+        <!-- 可以添加更多歌曲 -->
+    </div>
+    
+    <!-- 下午歌单 (12:00-17:59) -->
+    <div class="playlist" id="afternoon-playlist">
+        <h2>🌤 下午歌单 (12:00-17:59)</h2>
+        <div class="song">
+            <div class="song-number">1</div>
+            <div class="song-info">
+                <div class="song-title">午后时光</div>
+                <div class="song-artist">艺术家C</div>
+            </div>
+            <button class="play-button" data-ytid="dQw4w9WgXcQ">播放</button>
+        </div>
+        <div class="song">
+            <div class="song-number">2</div>
+            <div class="song-info">
+                <div class="song-title">咖啡时间</div>
+                <div class="song-artist">艺术家D</div>
+            </div>
+            <button class="play-button" data-ytid="dQw4w9WgXcQ">播放</button>
+        </div>
+        <!-- 可以添加更多歌曲 -->
+    </div>
+    
+    <!-- 晚上歌单 (18:00-23:59) -->
+    <div class="playlist" id="evening-playlist">
+        <h2>🌙 晚上歌单 (18:00-23:59)</h2>
+        <div class="song">
+            <div class="song-number">1</div>
+            <div class="song-info">
+                <div class="song-title">夜曲</div>
+                <div class="song-artist">艺术家E</div>
+            </div>
+            <button class="play-button" data-ytid="dQw4w9WgXcQ">播放</button>
+        </div>
+        <div class="song">
+            <div class="song-number">2</div>
+            <div class="song-info">
+                <div class="song-title">星空</div>
+                <div class="song-artist">艺术家F</div>
+            </div>
+            <button class="play-button" data-ytid="dQw4w9WgXcQ">播放</button>
+        </div>
+        <!-- 可以添加更多歌曲 -->
+    </div>
+    
+    <!-- 深夜歌单 (0:00-5:59) -->
+    <div class="playlist" id="night-playlist">
+        <h2>🌌 深夜歌单 (0:00-5:59)</h2>
+        <div class="song">
+            <div class="song-number">1</div>
+            <div class="song-info">
+                <div class="song-title">月光</div>
+                <div class="song-artist">艺术家G</div>
+            </div>
+            <button class="play-button" data-ytid="dQw4w9WgXcQ">播放</button>
+        </div>
+        <div class="song">
+            <div class="song-number">2</div>
+            <div class="song-info">
+                <div class="song-title">梦境</div>
+                <div class="song-artist">艺术家H</div>
+            </div>
+            <button class="play-button" data-ytid="dQw4w9WgXcQ">播放</button>
+        </div>
+        <!-- 可以添加更多歌曲 -->
+    </div>
+    
+    <div class="player-container" id="player-container">
+        <div class="now-playing" id="now-playing"></div>
+        <iframe id="yt-player" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+    </div>
+    
+    <script>
+        // 更新当前时间显示
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('current-time').textContent = timeString;
+            
+            // 根据时间显示对应的歌单
+            const hours = now.getHours();
+            let activePlaylist = '';
+            
+            if (hours >= 6 && hours < 12) {
+                activePlaylist = '早晨';
+                document.getElementById('morning-playlist').style.display = 'block';
+                document.getElementById('afternoon-playlist').style.display = 'none';
+                document.getElementById('evening-playlist').style.display = 'none';
+                document.getElementById('night-playlist').style.display = 'none';
+            } else if (hours >= 12 && hours < 18) {
+                activePlaylist = '下午';
+                document.getElementById('morning-playlist').style.display = 'none';
+                document.getElementById('afternoon-playlist').style.display = 'block';
+                document.getElementById('evening-playlist').style.display = 'none';
+                document.getElementById('night-playlist').style.display = 'none';
+            } else if (hours >= 18 && hours < 24) {
+                activePlaylist = '晚上';
+                document.getElementById('morning-playlist').style.display = 'none';
+                document.getElementById('afternoon-playlist').style.display = 'none';
+                document.getElementById('evening-playlist').style.display = 'block';
+                document.getElementById('night-playlist').style.display = 'none';
+            } else {
+                activePlaylist = '深夜';
+                document.getElementById('morning-playlist').style.display = 'none';
+                document.getElementById('afternoon-playlist').style.display = 'none';
+                document.getElementById('evening-playlist').style.display = 'none';
+                document.getElementById('night-playlist').style.display = 'block';
+            }
+            
+            document.getElementById('current-playlist').textContent = activePlaylist;
+        }
+        
+        // 初始化时间显示和歌单
+        updateTime();
+        setInterval(updateTime, 1000);
+        
+        // 为所有播放按钮添加点击事件
+        document.querySelectorAll('.play-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const songElement = this.closest('.song');
+                const songTitle = songElement.querySelector('.song-title').textContent;
+                const songArtist = songElement.querySelector('.song-artist').textContent;
+                const youtubeId = this.getAttribute('data-ytid');
+                
+                // 显示播放器
+                document.getElementById('player-container').style.display = 'block';
+                document.getElementById('now-playing').textContent = `正在播放: ${songTitle} - ${songArtist}`;
+                
+                // 加载YouTube视频
+                document.getElementById('yt-player').src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1`;
+                
+                // 滚动到播放器
+                document.getElementById('player-container').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
